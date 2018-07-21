@@ -1,6 +1,7 @@
 <html>
 <h1>Pixelflut nodes overview</h1>
 <?php 
-echo $ENV['DB-HOSTNAME'];
-echo $ENV['DB-USERNAME'];
+echo $ENV['MARIADB-HOSTNAME'];
+echo $ENV['MARIADB-DATABASE'];
+echo $ENV['MARIADB-USERNAME'];
 ?>
