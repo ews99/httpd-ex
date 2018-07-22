@@ -1,0 +1,31 @@
+#!/bin/bash
+
+DEPLOYING=`curl "http://pixelflut-nodes-pixelflut-nodes.router.default.svc.cluster.local/script.php?action=get&state=deploying" 2>/dev/null | head -n 1`
+NEWNODE=`curl "http://pixelflut-nodes-pixelflut-nodes.router.default.svc.cluster.local/script.php?action=get&state=new" 2>/dev/null | head -n 1`
+
+if [ "${DEPLOYING}" != "" ]
+then
+    HOSTNAME=`echo ${DEPLOYING} | cut -d " " -f 1`
+    IPADDRESS=`echo ${DEPLOYING} | cut -d " " -f 2`
+    echo "Waiting for deploy to finish on: ${HOSTNAME}"
+else
+    if [ "${NEWNODE}" != "" ]
+    then
+        echo "Found new node to deploy: ${NEWNODE}"
+        HOSTNAME=`echo ${NEWNODE} | cut -d " " -f 1`
+        IPADDRESS=`echo ${NEWNODE} | cut -d " " -f 2`
+
+        echo "Start deployment on: ${HOSTNAME} IP: ${IPADDRESS}"
+
+        #set state to deploying:
+        curl "http://pixelflut-nodes-pixelflut-nodes.router.default.svc.cluster.local/script.php?action=update&state=deploying&hostname=${HOSTNAME}"
+
+        echo "${IPADDRESS} ${HOSTNAME}" >> /etc/hosts
+        ansible-playbook -i /etc/ansible/new-hosts /etc/ansible/playbooks/openshift-prep.yml
+        cp /etc/ansible/hosts /etc/ansible/new-hosts
+        echo "${HOSTNAME} openshift_node_labels=\"{'region': 'primary', 'zone': 'default'}\" openshift_node_group_name=\"node-config-compute\"" >> /etc/ansible/new-hosts
+
+        # Update state to ready:
+        curl "http://pixelflut-nodes-pixelflut-nodes.router.default.svc.cluster.local/script.php?action=update&state=ready&hostname=${HOSTNAME}"
+    fi
+fi
