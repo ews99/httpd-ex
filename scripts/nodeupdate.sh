@@ -15,6 +15,4 @@ then
     HOSTNAME=`hostname`
 fi
 
-echo "$HOSTNAME $DOMAINNAME $IPADDR $IPADDRHEX"
-
 curl "${URL}/script.php?action=heartbeat&hostname=${HOSTNAME}&ipaddress=${IPADDR}"
