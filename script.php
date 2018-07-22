@@ -32,7 +32,6 @@ case 'update':
             die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
         }
         $mysqli->query($mysql_query);
-echo $mysql_query."\n";
         echo "Updated hostname: ".$hostname." to state: ".$state."\n";
     }
     break;
