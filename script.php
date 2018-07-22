@@ -36,5 +36,20 @@ echo $mysql_query."\n";
         echo "Updated hostname: ".$hostname." to state: ".$state."\n";
     }
     break;
+
+case 'get':
+    if (!empty($state)) {
+        $mysql_query="";
+        $mysql_query.="SELECT * FROM pixelflut_nodes";
+        $mysql_query.=" WHERE `deployment_state`='".$state."'";
+        $mysqli = new mysqli($_ENV['MARIADB_HOSTNAME'], $_ENV['MARIADB_USERNAME'], $_ENV['MARIADB_PASSWORD'], $_ENV['MARIADB_DATABASE']);
+
+        $res=$mysqli->query($mysql_query);
+        while ($row = $res->fetch_assoc()) {
+            echo($row['hostname']." ".$row['ipaddress']);
+
+        }
+    }
+    break;
 }
 ?>
