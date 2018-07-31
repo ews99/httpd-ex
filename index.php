@@ -12,6 +12,7 @@ Version 1.1<br>
         <th>IP Address</th>
         <th>Deployment state</th>
         <th>Last seen</th>
+        <th>Tag</th>
     </tr>
 <?php
 
