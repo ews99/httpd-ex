@@ -1,7 +1,7 @@
 <?php
 if (isset($_GET['action']) && !empty($_GET['action'])) { $action=htmlspecialchars($_GET['action']); }
 if (isset($_GET['state']) && !empty($_GET['state'])) { $state=htmlspecialchars($_GET['state']); }
-if (isset($_GET['tag']) && !empty($_GET['tag'])) { tag=htmlspecialchars($_GET['tag']); }
+if (isset($_GET['tag']) && !empty($_GET['tag'])) { $tag=htmlspecialchars($_GET['tag']); }
 if (isset($_GET['hostname']) && !empty($_GET['hostname'])) { $hostname=htmlspecialchars($_GET['hostname']); }
 if (isset($_GET['ipaddress']) && !empty($_GET['ipaddress'])) { $ipaddress=htmlspecialchars($_GET['ipaddress']); }
 
