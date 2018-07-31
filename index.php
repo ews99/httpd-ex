@@ -27,6 +27,7 @@ Version 1.1<br>
         echo "        <td>".$row['ipaddress']."</td>\n";
         echo "        <td>".$row['deployment_state']."</td>\n";
         echo "        <td>".$row['last_checkin']."</td>\n";
+        echo "        <td>".$row['tag']."</td>\n";
         echo "    </tr>\n";
     }
 
