@@ -10,7 +10,9 @@ Version 1.2<br>
     <tr>
         <th>Hostname</th>
         <th>IP Address</th>
+        <th>MAC</th>
         <th>Deployment state</th>
+        <th>Device</th>
         <th>Last seen</th>
         <th>Tag</th>
     </tr>
@@ -20,7 +22,7 @@ Version 1.2<br>
     echo date('H:i:s');
 
     #$mysql_query="SELECT * FROM pixelflut_nodes";
-    $mysql_query="select `hostname`,`ipaddress`,`deployment_state`,`tag`,CONVERT_TZ(`last_checkin`, @@session.time_zone, '+02:00') AS `last_checkin` from pixelflut_nodes;";
+    $mysql_query="select `hostname`,`ipaddress`,`macaddress`,`iface`,`deployment_state`,`tag`,CONVERT_TZ(`last_checkin`, @@session.time_zone, '+02:00') AS `last_checkin` from pixelflut_nodes;";
     
     $mysqli = new mysqli($_ENV['MARIADB_HOSTNAME'], $_ENV['MARIADB_USERNAME'], $_ENV['MARIADB_PASSWORD'], $_ENV['MARIADB_DATABASE']);
     if ($mysqli->connect_errno) {
@@ -31,6 +33,8 @@ Version 1.2<br>
         echo "    <tr>\n";
         echo "        <td>".$row['hostname']."</td>\n";
         echo "        <td>".$row['ipaddress']."</td>\n";
+        echo "        <td>".$row['macaddress']."</td>\n";
+        echo "        <td>".$row['iface']."</td>\n";
         echo "        <td>".$row['deployment_state']."</td>\n";
         echo "        <td>".$row['last_checkin']."</td>\n";
         echo "        <td>".$row['tag']."</td>\n";
