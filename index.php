@@ -15,8 +15,13 @@ Version 1.1<br>
         <th>Tag</th>
     </tr>
 <?php
+    
+    date_default_timezone_set('Europe/Amsterdam');
+    echo date('H:i:s');
 
-    $mysql_query="SELECT * FROM pixelflut_nodes";
+    #$mysql_query="SELECT * FROM pixelflut_nodes";
+    $mysql_query="select `hostname`,`ipaddress`,`deployment_state`,`tag`,CONVERT_TZ(`last_checkin`, @@session.time_zone, '+02:00') AS `last_checkin` from pixelflut_nodes;";
+    
     $mysqli = new mysqli($_ENV['MARIADB_HOSTNAME'], $_ENV['MARIADB_USERNAME'], $_ENV['MARIADB_PASSWORD'], $_ENV['MARIADB_DATABASE']);
     if ($mysqli->connect_errno) {
         die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
