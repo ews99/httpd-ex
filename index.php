@@ -1,6 +1,6 @@
 <html>
 <h1>Pixelflut nodes overview</h1>
-Version 1.1<br>
+Version 1.2<br>
 <ul>
     <li><a href="/downloads/">Downloads</a></li>
 </ul>
