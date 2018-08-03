@@ -4,6 +4,8 @@ if (isset($_GET['state']) && !empty($_GET['state'])) { $state=htmlspecialchars($
 if (isset($_GET['tag']) && !empty($_GET['tag'])) { $tag=htmlspecialchars($_GET['tag']); }
 if (isset($_GET['hostname']) && !empty($_GET['hostname'])) { $hostname=htmlspecialchars($_GET['hostname']); }
 if (isset($_GET['ipaddress']) && !empty($_GET['ipaddress'])) { $ipaddress=htmlspecialchars($_GET['ipaddress']); }
+if (isset($_GET['macaddress']) && !empty($_GET['macaddress'])) { $macaddress=htmlspecialchars($_GET['macaddress']); }
+if (isset($_GET['iface']) && !empty($_GET['iface'])) { $iface=htmlspecialchars($_GET['iface']); }
 
 switch ($action)
 {
@@ -18,6 +20,23 @@ case 'heartbeat':
         die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
     }
     $mysqli->query($mysql_query);
+        
+    if (!empty($macaddress)) {
+        $mysql_query="";
+        $mysql_query.="UPDATE pixelflut_nodes";
+        $mysql_query.=" SET `macaddress`='".$macaddress."'";
+        $mysql_query.=" WHERE `hostname`='".$hostname."'";
+        $mysqli->query($mysql_query);
+    }
+        
+    if (!empty($iface)) {
+        $mysql_query="";
+        $mysql_query.="UPDATE pixelflut_nodes";
+        $mysql_query.=" SET `iface`='".$iface."'";
+        $mysql_query.=" WHERE `hostname`='".$hostname."'";
+        $mysqli->query($mysql_query);
+    }
+        
     break;
 
 case 'update':
