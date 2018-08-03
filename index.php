@@ -11,8 +11,8 @@ Version 1.3<br>
         <th>Hostname</th>
         <th>IP Address</th>
         <th>MAC</th>
-        <th>Deployment state</th>
         <th>Device</th>
+        <th>Deployment state</th>
         <th>Last seen</th>
         <th>Tag</th>
     </tr>
